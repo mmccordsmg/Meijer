@@ -12,7 +12,7 @@ init_meijer_connection_user(args.username, args.password)
 
 result = clip_meijer_coupon(args.offerid)
 if not result == True:
-	print ("Error clipping coupon %s - %s" % (args.offerid,  result))
+	print ("Error clipping coupon {args.offerid} - {result}")
 	exit()
 else:
-	print("Clipped offer %s successfully on account %s." % (args.offerid, args.username))
+	print(f"Clipped offer {args.offerid} successfully on account {args.username}.")
