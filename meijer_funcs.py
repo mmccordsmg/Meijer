@@ -1,28 +1,36 @@
 import requests
 import json
 
+from io import StringIO
+from html.parser import HTMLParser
+
 session = requests.Session()
 token = False
-session.verify = False
-session.proxies = { 'https': 'http://127.0.0.1:8080' }
+#session.verify = False
+#session.proxies = { 'https': 'http://127.0.0.1:8080' }
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.reset()
+        self.strict = False
+        self.convert_charrefs= True
+        self.text = StringIO()
+    def handle_data(self, d):
+        self.text.write(d)
+    def get_data(self):
+        return self.text.getvalue()
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
+
 def update_headers(func):
 	global session, token
-	if func == "init":
-		session.headers.update(
-			{
-					"Meijer-Version": "iPhone/5.28.1",
-					"Accept-Language": "en-US;q=1",
-					"User-Agent": "Meijer/5.28.1 (iPhone; iOS 13.1.3; Scale/2.00)", 
-					"Content-Type": "application/x-www-form-urlencoded",
-					"Accept": "application/json",
-					"Accept-Encoding": "gzip, deflate, br",
-					"Authorization": "Basic bW1hOmRyQXFhczc2UmU3UmVrZUJhbmFNYU5FTWFoN3BhREU1"
-			}
-		)
-		return()
 	if func == "init":
 		session.headers.update(
 			{
@@ -91,6 +99,54 @@ def update_headers(func):
 					"User-Agent": "Meijer/504 CFNetwork/1107.1 Darwin/19.0.0", 
 					"Content-Type": "application/vnd.meijer.digitalmperks.unclip-v1.0+json",
 					"Accept": "application/vnd.meijer.digitalmperks.unclip-v1.0+json",
+					"Accept-Encoding": "gzip, deflate, br",
+					"Authorization": "Bearer " + token,
+					"Build": "504",
+					"Platform": "iOS",
+					"Meijer-Version": "iPhone/5.28.1"
+			}
+		)
+		return()
+	if func == "get_meijer_offers_available":
+		session.headers.update(
+			{
+					"Version": "5.28.1",
+					"Accept-Language": "en-us",
+					"User-Agent": "Meijer/504 CFNetwork/1107.1 Darwin/19.0.0", 
+					"Content-Type": "application/vnd.meijer.digitalmperks.getrewards-v1.0+json",
+					"Accept": "application/vnd.meijer.digitalmperks.availablerewards-v1.0+json",
+					"Accept-Encoding": "gzip, deflate, br",
+					"Authorization": "Bearer " + token,
+					"Build": "504",
+					"Platform": "iOS",
+					"Meijer-Version": "iPhone/5.28.1"
+			}
+		)
+		return()
+	if func == "get_meijer_offers_earned":
+		session.headers.update(
+			{
+					"Version": "5.28.1",
+					"Accept-Language": "en-us",
+					"User-Agent": "Meijer/504 CFNetwork/1107.1 Darwin/19.0.0", 
+					"Content-Type": "application/vnd.meijer.digitalmperks.getrewards-v1.0+json",
+					"Accept": "application/vnd.meijer.digitalmperks.earnedrewards-v1.0+json",
+					"Accept-Encoding": "gzip, deflate, br",
+					"Authorization": "Bearer " + token,
+					"Build": "504",
+					"Platform": "iOS",
+					"Meijer-Version": "iPhone/5.28.1"
+			}
+		)
+		return()
+	if func == "get_meijer_offers_inprogress":
+		session.headers.update(
+			{
+					"Version": "5.28.1",
+					"Accept-Language": "en-us",
+					"User-Agent": "Meijer/504 CFNetwork/1107.1 Darwin/19.0.0", 
+					"Content-Type": "application/vnd.meijer.digitalmperks.getrewards-v1.0+json",
+					"Accept": "application/vnd.meijer.digitalmperks.inprogressrewards-v1.0+json",
 					"Accept-Encoding": "gzip, deflate, br",
 					"Authorization": "Bearer " + token,
 					"Build": "504",
@@ -249,5 +305,28 @@ def unclip_meijer_coupon(meijerOfferId):
 	r=session.post(clipurl, data=json.dumps(payload))
 	if r.json()["result"] == 'Success':
 		return(True)
+	else:
+		return(False)
+
+def get_meijer_offers(offertype):
+	global session, token
+	if not token:
+		print("Must login first!")
+		return(False)
+	if offertype in ['Available', 'Earned', 'InProgress']:
+		url = f'https://mperksservices.meijer.com/dgtlmPerksMMA/api/reward/{offertype}'
+	else:
+		print('Offer type must be "Available", "Earned", or "InProgress"')
+		return(False)
+	properties = get_account_properties()
+	update_headers(f"get_meijer_offers_{offertype.lower()}")
+	zipcode = properties["zipCode"]
+	storeId = properties["storeId"]
+	payload = { "zip": zipcode, "storeId": storeId }
+	r=session.post(url, data=json.dumps(payload))
+	rjson = r.json()
+	offers = rjson.get("rewards")
+	if offers:
+		return(offers)
 	else:
 		return(False)
