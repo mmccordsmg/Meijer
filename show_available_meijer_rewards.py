@@ -13,4 +13,4 @@ for offertype in ['InProgress', 'Available']:
 	offers = get_meijer_offers(offertype)
 	if offers:
 		for offer in offers:
-			print(f'{offer.get("meijerOfferId")} - {offer.get("title")} {strip_tags(offer.get("description"))}')
+			print(f'{offer.get("meijerOfferId")} - {offer.get("title").strip()} {strip_tags(offer.get("description")).strip()}')
