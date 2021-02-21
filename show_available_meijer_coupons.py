@@ -18,6 +18,6 @@ init_meijer_connection_user(args.username, args.password)
 
 coupons = get_all_meijer_coupons()
 for coupon in coupons:
-	print(f'{(coupon.get("meijerOfferId")} - {coupon.get("title").strip()} {coupon.get("description").strip()}')
+	print(f'{coupon.get("meijerOfferId")} - {coupon.get("title").strip()} {coupon.get("description").strip()}')
 	if logfile:
-		logfile.write(f'{args.username} - {(coupon.get("meijerOfferId")} - {coupon.get("title").strip()} {coupon.get("description").strip()}')
+		logfile.write(f'{args.username} - {coupon.get("meijerOfferId")} - {coupon.get("title").strip()} {coupon.get("description").strip()}')
