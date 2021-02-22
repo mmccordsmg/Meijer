@@ -12,28 +12,27 @@ args = parser.parse_args()
 
 init_meijer_connection_user(args.username, args.password)
 
+startnum = int(f'{args.prefix}0000')
+endnum = int(f'{args.prefix}9999')+1
 results = []
-validids = []
 tounclip = []
-for offerid in trange(int(f'{args.prefix}0000'), int(f'{args.prefix}9999')+1):
+for offerid in trange(startnum, endnum):
 	result = clip_meijer_coupon(offerid)
-	if result == True:
-		validids.append(offerid)
-	else:
+	if not result == True:
 		results.append({'meijerOfferId': offerid, 'status': result})
 
 for offertype in ['Earned', 'InProgress', 'Available']:
 	offers = get_meijer_offers(offertype)
 	if offers:
 		for offer in sorted(offers, key = lambda i: i['meijerOfferId']):
-			if offer.get("meijerOfferId") in validids:
+			if offer.get("meijerOfferId") in range(startnum, endnum):
 				print(f'{offer.get("meijerOfferId")} - {offertype} reward - {offer.get("title").strip()} {strip_tags(offer.get("description")).strip()}')
 				results.append({'meijerOfferId': offer.get("meijerOfferId"), 'status': f'{offertype} reward', 'description': f'{offer.get("title").strip()} {strip_tags(offer.get("description")).strip()}', 'expirationDate': offer.get("expirationDate")})
 
 coupons = get_all_clipped_meijer_coupons()
 if coupons:
 	for coupon in sorted(coupons, key = lambda i: i['meijerOfferId']):
-		if coupon.get("meijerOfferId") in validids:
+		if coupon.get("meijerOfferId") in range(startnum, endnum):
 			print(f'{coupon.get("meijerOfferId")} - coupon - {coupon.get("title").strip()} {coupon.get("description").strip()}')
 			results.append({'meijerOfferId': coupon.get("meijerOfferId"), 'status': 'Valid coupon', 'description': f'{coupon.get("title").strip()} {coupon.get("description").strip()}', 'expirationDate': coupon.get("redemptionEndDate")})
 			tounclip.append(coupon.get("meijerOfferId"))
