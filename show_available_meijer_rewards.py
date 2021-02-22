@@ -9,7 +9,7 @@ args = parser.parse_args()
 
 init_meijer_connection_user(args.username, args.password)
 
-for offertype in ['InProgress', 'Available']:
+for offertype in ['Earned']:
 	offers = get_meijer_offers(offertype)
 	if offers:
 		for offer in offers:

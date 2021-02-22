@@ -16,6 +16,6 @@ if coupons:
 	for coupon in tqdm(coupons):
 		result = unclip_meijer_coupon(coupon["meijerOfferId"])
 		if not result:
-			print ('Error unclipping coupon {coupon["meijerOfferId"]} - {coupon["title"].strip()} {coupon["description"].strip()}')
+			print (f'Error unclipping coupon {coupon["meijerOfferId"]} - {coupon["title"].strip()} {coupon["description"].strip()}')
 else:
 	print ("No clipped coupons found.")
