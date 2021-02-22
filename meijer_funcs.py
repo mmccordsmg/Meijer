@@ -4,8 +4,8 @@ import json
 from io import StringIO
 from html.parser import HTMLParser
 
-session = requests.Session()
-token = False
+#session = requests.Session()
+#token = False
 #session.verify = False
 #session.proxies = { 'https': 'http://127.0.0.1:8080' }
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
