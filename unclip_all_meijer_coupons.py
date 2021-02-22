@@ -1,4 +1,4 @@
-from meijer_funcs import unclip_meijer_coupon, get_all_clipped_meijer_coupons, init_meijer_connection_user
+from meijer_funcs import unclip_meijer_coupon, get_all_clipped_meijer_coupons, init_meijer_connection_user, get_meijer_offers
 import argparse
 from tqdm import tqdm
 
