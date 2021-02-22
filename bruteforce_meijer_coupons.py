@@ -18,7 +18,7 @@ results = []
 tounclip = []
 for offerid in trange(startnum, endnum):
 	result = clip_meijer_coupon(offerid)
-	if not result == True:
+	if (not result == True) and (not result == 'Offer is already clipped by this shopper.'):
 		results.append({'meijerOfferId': offerid, 'status': result})
 
 for offertype in ['Earned', 'InProgress', 'Available']:
