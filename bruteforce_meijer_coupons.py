@@ -39,7 +39,7 @@ def process_coupons():
 				unclip_meijer_coupon(coupon.get("meijerOfferId"))
 		
 for offerid in tqdm(checkrange):
-	if offerid%1000 == 0:
+	if offerid%500 == 0:
 		process_coupons()
 	result = clip_meijer_coupon(offerid)
 	#if result == 'Success':
