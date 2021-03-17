@@ -6,8 +6,8 @@ from html.parser import HTMLParser
 
 session = requests.Session()
 token = False
-session.verify = False
-session.proxies = { 'https': 'http://127.0.0.1:8080' }
+#session.verify = False
+#session.proxies = { 'https': 'http://127.0.0.1:8080' }
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
