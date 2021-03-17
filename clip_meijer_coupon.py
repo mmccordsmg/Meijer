@@ -10,9 +10,7 @@ args = parser.parse_args()
 
 init_meijer_connection_user(args.username, args.password)
 
-result = clip_meijer_coupon(args.offerid)
-if not result == True:
-	print (f"Error clipping coupon {args.offerid} - {result}")
-	exit()
-else:
+if (result := clip_meijer_coupon(args.offerid)) == True:
 	print(f"Clipped offer {args.offerid} successfully on account {args.username}.")
+else:
+	print (f"Error clipping coupon {args.offerid} - {result}")
