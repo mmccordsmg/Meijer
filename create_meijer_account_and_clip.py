@@ -27,9 +27,7 @@ f = open(f'{args.clipfile}', 'r')
 
 for line in f:
 	offerid = line.split()[0]
-	result = clip_meijer_coupon(offerid)
-	if not result == True:
-		print (f"Error clipping coupon {offerid} - {result}")
-		exit()
-	else:
+	if (result := clip_meijer_coupon(args.offerid)) == True:
 		print(f"Clipped offer {offerid} successfully on account {args.email}.")
+	else:
+		print (f"Error clipping coupon {offerid} - {result}")
