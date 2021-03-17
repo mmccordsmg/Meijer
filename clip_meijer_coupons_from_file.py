@@ -14,7 +14,7 @@ f = open(f'{args.filename}', 'r')
 
 for line in f:
 	offerid = line.split()[0]
-	if (result := clip_meijer_coupon(args.offerid)) == True:
+	if (result := clip_meijer_coupon(offerid)) == True:
 		print(f"Clipped offer {offerid} successfully on account {args.username}.")
 	else:
 		print (f"Error clipping coupon {offerid} - {result}")
