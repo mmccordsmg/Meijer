@@ -8,17 +8,17 @@ from datetime import datetime
 parser = argparse.ArgumentParser(description="Finds  Meijer coupons for account specified")
 parser.add_argument("-u",	"--username",		help="Username (Email address)",								required=True,	type=str)
 parser.add_argument("-p",	"--password",		help="Password",																required=True,	type=str)
-parser.add_argument("-r",	"--prefix",			help="prefix (5 digits)",												required=True,	type=str)
+parser.add_argument("-r",	"--prefix",			help="prefix (6 digits)",												required=True,	type=str)
 
 args = parser.parse_args()
 
 init_meijer_connection_user(args.username, args.password)
-if len(args.prefix) != 5:
+if len(args.prefix) != 6:
 	print('Wrong prefix length')
 	exit()
 	
-startnum = int(f'{args.prefix}00000')
-endnum = int(f'{args.prefix}99999')+1
+startnum = int(f'{args.prefix}0000')
+endnum = int(f'{args.prefix}9999')+1
 results = []
 
 checkrange = []
