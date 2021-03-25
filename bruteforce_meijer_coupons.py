@@ -8,24 +8,30 @@ from datetime import datetime
 parser = argparse.ArgumentParser(description="Finds  Meijer coupons for account specified")
 parser.add_argument("-u",	"--username",		help="Username (Email address)",								required=True,	type=str)
 parser.add_argument("-p",	"--password",		help="Password",																required=True,	type=str)
-parser.add_argument("-r",	"--prefix",			help="prefix (6 digits)",												required=True,	type=str)
+#parser.add_argument("-r",	"--prefix",			help="prefix (6 digits)",												required=True,	type=str)
+parser.add_argument("-s",	"--startnum",		help="starting number (10 digits)",							required=True,	type=str)
+parser.add_argument("-e",	"--endnum",			help="ending number (10 digits)",								required=True,	type=str)
 
 args = parser.parse_args()
 
 init_meijer_connection_user(args.username, args.password)
-if len(args.prefix) != 6:
-	print('Wrong prefix length')
+if len(args.startnum) != 10:
+	print('Wrong startnum length')
+	exit()
+if len(args.endnum) != 10:
+	print('Wrong endnum length')
+	exit()
+if int(args.startnum) > int(args.endnum):
+	print('startnum must be less than endnum')
 	exit()
 	
-startnum = int(f'{args.prefix}0000')
-endnum = int(f'{args.prefix}9999')+1
 results = []
 
 checkrange = []
 
-outname = f'{args.username}_{args.prefix}_{datetime.now().strftime("%Y-%m-%d-%H_%M_%S")}.txt'
+outname = f'{args.username}_{args.startnum}-{args.endnum}_{datetime.now().strftime("%Y-%m-%d-%H_%M_%S")}.txt'
 
-for x in range(startnum, endnum):
+for x in range(int(args.startnum), int(args.endnum)+1):
 	checkrange.append(x)
 
 def process_coupons():
