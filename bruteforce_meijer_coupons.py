@@ -28,10 +28,10 @@ tabs = [
 						{"Name": "Other", "Color": "FF0000"}
 				]
 columns = [
-						{'Name': 'meijerOfferId', 'Width': 20, 'Column': 1, 'Type': 'General'},
+						{'Name': 'meijerOfferId', 'Width': 12, 'Column': 1, 'Type': 'General'},
 						{'Name': 'description', 'Width': 80, 'Column': 2, 'Type': 'General'},
-						{'Name': 'startDate', 'Width': 15, 'Column': 3, 'Type': 'Date'},
-						{'Name': 'expirationDate', 'Width': 15, 'Column': 4, 'Type': 'Date'},
+						{'Name': 'startDate', 'Width': 12, 'Column': 3, 'Type': 'Date'},
+						{'Name': 'expirationDate', 'Width': 12, 'Column': 4, 'Type': 'Date'},
 						{'Name': 'manufacturerCoupon', 'Width': 20, 'Column': 5, 'Type': 'Boolean'},
 						{'Name': 'status', 'Width': 20, 'Column': 6, 'Type': 'General'},
 						{'Name': 'ScanDate', 'Width': 20, 'Column': 7, 'Type': 'DateTime'},
