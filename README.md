@@ -21,7 +21,7 @@ FAQs:
       A: Meijer doesn't seem to know the answer to this, so I doubt I can explain it.
 
       Q: So how did you get wrapped up in it?  Isn't authoring software protected speech under the First Amendment?
-      A: A lot to unravel here.  First, I was in active communication with these users, adding features at their request.  This potentially opened me up to being a member of the 'conspiracy'.  Once they opted not to defend their cases, I had very few options.  I likely had a decent First Amendment argument, but, in my research, many juries fail to reach the correct conclusion and an appeal or two may be required.  I have a family and kids to support.  I can't risk sitting in prison waiting for an appeal.
+      A: A lot to unravel here.  First, I was in active communication with these users, adding features at their request.  This potentially opened me up to being a member of the 'conspiracy'.  Once they opted not to defend their cases, I had very few options.  I likely had a decent First Amendment argument, but, in my research, many juries fail to reach the correct conclusion and an appeal or two may be required.  I have a family and kids to support.  I can't risk sitting in prison waiting for an appeal. Also, taking a guilty plea cost me $50,000 in legal expenses.  A trial would have run $100,000, plus more if we had to appeal the ruling.
 
       Q: Speaking of prison, what were you sentenced to?
       A: 8 months of home confinement, 2 years of probation, a $5,000 fine, and joint and several restitution of the full $72k.
